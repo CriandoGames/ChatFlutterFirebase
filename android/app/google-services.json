@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "389927085558",
+    "firebase_url": "https://fir-771bd.firebaseio.com",
+    "project_id": "fir-771bd",
+    "storage_bucket": "fir-771bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389927085558:android:27a8a965e0c8b93e5fd3d7",
+        "android_client_info": {
+          "package_name": "br.com.imortalgames.firebaseteste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389927085558-2666q3j50trlvanmipkdsq60i6vinuui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.imortalgames.firebaseteste",
+            "certificate_hash": "0c7fdaf4b40b7bc105c47adbc03e7774bf54fa0e"
+          }
+        },
+        {
+          "client_id": "389927085558-65nd312njukcfrmspd34oa02b0ehlgs7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbKvnuR7ixiuYHncJtyUio7X_pn-tQ2ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389927085558-65nd312njukcfrmspd34oa02b0ehlgs7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
