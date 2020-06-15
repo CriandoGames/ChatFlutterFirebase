@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebaseteste/Screen/Home/Home.dart';
 import 'package:firebaseteste/model/Usuario.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +49,7 @@ class _CadastroState extends State<Cadastro> {
       password: user.senha,
     ).then((value) {
       print("Sucesso");
+      Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
     }).catchError((erro){
       print("Erro ao Cadastrar " + erro.toString());
     });

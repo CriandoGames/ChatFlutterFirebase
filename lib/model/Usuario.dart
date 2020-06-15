@@ -16,10 +16,6 @@ String _senha;
 
  set senha(String value) => _senha = value;
 
-
   Usuario();
-
-
-
 
 }

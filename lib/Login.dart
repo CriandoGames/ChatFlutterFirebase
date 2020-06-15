@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebaseteste/Screen/Home/Home.dart';
 import 'package:flutter/material.dart';
 
 import 'Screen/Cadastro/Cadastro.dart';
+import 'model/Usuario.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -8,6 +11,60 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerSenha = TextEditingController();
+
+  _validarCampos() {
+    String email = _controllerEmail.text;
+    String senha = _controllerSenha.text;
+
+    try {
+      if (email.length > 6 && email.contains("@")) {
+        if (senha.isNotEmpty) {
+          Usuario usuario = Usuario();
+          usuario.email = email;
+          usuario.senha = senha;
+
+          _logIn(usuario);
+        } else {
+          print("Senha Invalida");
+        }
+      } else {
+        print("Email Invalido");
+      }
+    } catch (e) {}
+  }
+
+  _logIn(Usuario user) {
+    FirebaseAuth db = FirebaseAuth.instance;
+
+    db
+        .signInWithEmailAndPassword(
+      email: user.email,
+      password: user.senha,
+    )
+        .then((value) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+    }).catchError((erro) {
+      print("Erro " + erro.toString());
+    });
+  }
+
+  Future checkUserLogIn() async {
+    FirebaseAuth db = FirebaseAuth.instance;
+    FirebaseUser userCurrent = await db.currentUser();
+
+    if (userCurrent != null) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+    }
+  }
+
+  @override
+  void initState() {
+     checkUserLogIn();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +87,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: TextField(
+                    controller: _controllerEmail,
                     autofocus: true,
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(fontSize: 20),
@@ -43,6 +101,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 TextField(
+                  obscureText: true,
+                  controller: _controllerSenha,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: TextStyle(fontSize: 20),
@@ -60,7 +120,9 @@ class _LoginState extends State<Login> {
                     bottom: 10,
                   ),
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _validarCampos();
+                    },
                     child: Text(
                       "Entrar",
                       style: TextStyle(
@@ -70,15 +132,19 @@ class _LoginState extends State<Login> {
                     ),
                     color: Colors.green,
                     padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
                   ),
                 ),
                 Center(
                   child: GestureDetector(
-                    child: Text("não tem conta? cadastre-se!", style: TextStyle(color: Colors.white),),
-                    onTap: (){
-                      Navigator.push(
-                        context, MaterialPageRoute(builder: (contex)=> Cadastro()));
+                    child: Text(
+                      "não tem conta? cadastre-se!",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (contex) => Cadastro()));
                     },
                   ),
                 ),
