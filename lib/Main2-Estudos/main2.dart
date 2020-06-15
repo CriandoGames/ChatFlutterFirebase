@@ -1,14 +1,14 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 void main2() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-   Firestore db = Firestore.instance;
+  // Firestore db = Firestore.instance;
   // FirebaseAuth auth = FirebaseAuth.instance;
 
   // //Criando Usuario com Login e senha
@@ -42,10 +42,10 @@ void main2() async {
 
   //
 
-   db.collection("usuarios").document("002").setData({
-    "nome": "Lala Castro3",
-    "idade": "21",
-  });
+  // db.collection("usuarios").document("002").setData({
+  ////  "nome": "Lala Castro3",
+ //   "idade": "21",
+  //});
 
   //Pega dados automaticos do banco
   /*db.collection("usuarios").snapshots().listen((event) 
