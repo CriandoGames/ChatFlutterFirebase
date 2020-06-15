@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebaseteste/Screen/Home/Home.dart';
 import 'package:firebaseteste/model/Usuario.dart';
@@ -22,7 +23,6 @@ class _CadastroState extends State<Cadastro> {
       if (nome.length > 3) {
         if (email.length > 6 && email.contains("@")) {
           if (senha.length > 6) {
-
             Usuario usuario = Usuario();
             usuario.nome = nome;
             usuario.email = email;
@@ -44,15 +44,28 @@ class _CadastroState extends State<Cadastro> {
   _cadastrarUser(Usuario user) {
     FirebaseAuth db = FirebaseAuth.instance;
 
-    db.createUserWithEmailAndPassword(
+    db
+        .createUserWithEmailAndPassword(
       email: user.email,
       password: user.senha,
-    ).then((value) {
+    )
+        .then((value) {
+      _salve(user, value);
       print("Sucesso");
-      Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
-    }).catchError((erro){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Home()));
+    }).catchError((erro) {
       print("Erro ao Cadastrar " + erro.toString());
     });
+  }
+
+  //Salvar Dados
+  _salve(Usuario user, AuthResult firebaseUser)
+   {
+    Firestore db = Firestore.instance;
+    db
+        .collection("Usuarios")
+        .document(firebaseUser.user.uid)
+        .setData(user.toMap());
   }
 
   @override

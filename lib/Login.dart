@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
       password: user.senha,
     )
         .then((value) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Home()));
     }).catchError((erro) {
       print("Erro " + erro.toString());
     });
@@ -52,16 +52,17 @@ class _LoginState extends State<Login> {
 
   Future checkUserLogIn() async {
     FirebaseAuth db = FirebaseAuth.instance;
+    //db.signOut();
     FirebaseUser userCurrent = await db.currentUser();
 
     if (userCurrent != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Home()));
     }
   }
 
   @override
   void initState() {
-     checkUserLogIn();
+    checkUserLogIn();
     super.initState();
   }
 
